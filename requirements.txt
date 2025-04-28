@@ -1,0 +1,7 @@
+Flask
+opencv-python
+numpy
+easyocr
+pdf2image
+fuzzywuzzy
+python-Levenshtein
