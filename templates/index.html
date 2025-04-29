@@ -3,12 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <title>Certificate Verifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+        .container {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        h1 {
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: calc(100% - 22px);
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        button {
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        /* Dark Theme Styles */
+        body.dark-theme {
+            background-color: #333;
+            color: #fff;
+        }
+        .dark-theme .container {
+            background-color: #444;
+            color: #fff;
+        }
+        .dark-theme h1 {
+            color: #eee;
+        }
+        .dark-theme input[type="file"] {
+            background-color: #555;
+            border-color: #777;
+            color: #eee;
+        }
+        .dark-theme button {
+            background-color: #3a6070;
+        }
+        .dark-theme button:hover {
+            background-color: #4a777d;
+        }
+        /* Light Theme Styles */
+        body.light-theme {
+            background-color: #f4f4f4;
+            color: #000;
+        }
+        .light-theme .container {
+            background-color: #fff;
+            color: #000;
+        }
+        .light-theme h1 {
+            color: #333;
+        }
+        .light-theme input[type="file"] {
+            background-color: #fff;
+            border-color: #ddd;
+            color: #333;
+        }
+        .light-theme button {
+            background-color: #5cb85c;
+        }
+        .light-theme button:hover {
+            background-color: #4cae4c;
+        }
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #666;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        #theme-toggle:hover {
+            background-color: #777;
+        }
+    </style>
 </head>
-<body>
-    <h1>Upload Certificate</h1>
-    <form action="/verify" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <button type="submit">Verify</button>
-    </form>
+<body class="light-theme">
+    <button id="theme-toggle">Toggle Dark Mode</button>
+    <div class="container">
+        <h1>Upload Certificate</h1>
+        <form action="/verify" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            }
+        });
+    </script>
 </body>
 </html>
