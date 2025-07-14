@@ -40,22 +40,28 @@ def verify_certificate():
         mean_error = run_ela(temp_image_path)
         forgery_detected = mean_error > 8  # Stricter threshold now
     
-        text_valid = validate_extracted_text(extracted_text)
+        validation_result = validate_extracted_text(extracted_text)
+        heuristic_pass = validation_result["passed_heuristic"]
+        gemini_feedback = validation_result["gemini_feedback"]
+
     
-        if text_valid and not forgery_detected:
-            verdict = "Genuine ✅"
-        elif text_valid and forgery_detected:
-            verdict = "Suspicious ⚠️ (Possible Forgery)"
+        if heuristic_pass and not forgery_detected:
+        
+            verdict = "Genuine"
+        elif heuristic_pass and forgery_detected:
+            verdict = "Suspicious (Possible Forgery)"
         else:
-            verdict = "Fake ❌ (Text validation failed)"
-    
+            verdict = "Fake (Text validation failed)"
+            
         result = {
             "extracted_text": extracted_text,
-            "text_valid": text_valid,
+            "heuristic_pass": heuristic_pass,
+            "gemini_feedback": gemini_feedback,
             "forgery_mean_error": round(float(mean_error), 3),
             "forgery_detected": forgery_detected,
             "verdict": verdict
         }
+
     
         results.append(result)
     

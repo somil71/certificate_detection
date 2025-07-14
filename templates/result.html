@@ -7,19 +7,26 @@
 </head>
 <body>
     <div class="container">
-        <h1>Verification Result 📝</h1>
+        <h1>Verification Result</h1>
 
         {% for result in results %}
         <div class="card">
-            <h2>Verdict: {{ result.verdict }}</h2>
-            <p><strong>Extracted Text:</strong> {{ result.extracted_text }}</p>
-            <p><strong>Forgery Detected:</strong> {{ result.forgery_detected }}</p>
-            <p><strong>Forgery Mean Error:</strong> {{ result.forgery_mean_error }}</p>
-            <p><strong>Text Valid:</strong> {{ result.text_valid }}</p>
+            <h2>Final Verdict: {{ result.verdict }}</h2>
+
+            <p><strong>Extracted Text:</strong></p>
+            <pre>{{ result.extracted_text }}</pre>
+
+            <h3>Validation Summary</h3>
+            <ul>
+                <li><strong>Heuristic Check:</strong> {{ 'Passed' if result.heuristic_pass else 'Failed' }}</li>
+                <li><strong>Gemini AI Feedback:</strong> {{ result.gemini_feedback }}</li>
+                <li><strong>Forgery Detected:</strong> {{ 'Yes' if result.forgery_detected else 'No' }}</li>
+                <li><strong>Forgery Mean Error:</strong> {{ result.forgery_mean_error }}</li>
+            </ul>
         </div>
         {% endfor %}
-        
-        <a href="/">⏪ Verify Another Certificate</a>
+
+        <a href="/">← Verify Another Certificate</a>
     </div>
 </body>
 </html>
