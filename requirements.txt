@@ -5,3 +5,5 @@ easyocr
 pdf2image
 fuzzywuzzy
 python-Levenshtein
+Pillow
+scikit-image
